@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Master - Memory Challenge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="light-effect"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <h1>Brain Master</h1>
+            </div>
+            <div class="tagline">Challenge your memory</div>
+        </header>
+        
+        <div id="game-container">
+            <div class="game-header">
+                <div class="score-container">
+                    <div class="score">
+                        <i class="fas fa-star"></i>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="timer-container">
+                        <div class="timer">
+                            <div id="timer-bar"></div>
+                            <div id="timer-text"><i class="fas fa-clock"></i> <span id="time-left">10</span>s</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-content">
+                <div id="image-container">
+                    <div class="image-frame">
+                        <img id="current-image" src="" alt="Game image">
+                    </div>
+                </div>
+                
+                <div id="question-container">
+                    <div class="question-bubble">
+                        <p id="question-text"></p>
+                    </div>
+                    
+                    <div id="options-container">
+                        <button class="option-btn" data-option="A">
+                            <span class="option-letter">A</span>
+                            <span id="option-a" class="option-text"></span>
+                        </button>
+                        <button class="option-btn" data-option="B">
+                            <span class="option-letter">B</span>
+                            <span id="option-b" class="option-text"></span>
+                        </button>
+                        <button class="option-btn" data-option="C">
+                            <span class="option-letter">C</span>
+                            <span id="option-c" class="option-text"></span>
+                        </button>
+                        <button class="option-btn" data-option="D">
+                            <span class="option-letter">D</span>
+                            <span id="option-d" class="option-text"></span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="feedback-container"></div>
+            </div>
+        </div>
+        
+        <div id="game-over" style="display: none;">
+            <div class="game-over-content">
+                <div class="game-over-header">
+                    <i class="fas fa-trophy"></i>
+                    <h2>Game Over!</h2>
+                </div>
+                
+                <p id="game-over-reason"></p>
+                
+                <div class="result-container">
+                    <div class="score-result">
+                        <div class="result-label">Your Score</div>
+                        <div id="final-score" class="result-value">0</div>
+                    </div>
+                    
+                    <div class="rank-result">
+                        <div class="result-label">Level</div>
+                        <div id="player-rank" class="result-value rank">Chicken</div>
+                    </div>
+                </div>
+                
+                <div id="rank-description"></div>
+                
+                <div class="rank-badges">
+                    <div class="rank-badge chicken">
+                        <i class="fas fa-drumstick-bite"></i>
+                        <span>Chicken</span>
+                    </div>
+                    <div class="rank-badge potential">
+                        <i class="fas fa-seedling"></i>
+                        <span>Potential</span>
+                    </div>
+                    <div class="rank-badge talent">
+                        <i class="fas fa-award"></i>
+                        <span>Talent</span>
+                    </div>
+                    <div class="rank-badge eureka">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Eureka</span>
+                    </div>
+                </div>
+                
+                <button id="restart-btn">
+                    <i class="fas fa-redo-alt"></i>
+                    Restart
+                </button>
+            </div>
+        </div>        
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Brain Master - Developed by Artificial Intelligence</p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
