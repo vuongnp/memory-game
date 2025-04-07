@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Descriptions for each rank
     const rankDescriptions = {
-        "Chicken": "You need more practice to improve your memory.",
-        "Potential": "You have potential, keep practicing to grow.",
-        "Talent": "You have a good memory, very impressive!",
-        "Eureka": "Your memory is extraordinary! You're a genius!"
+        "Gà mờ": "Bạn cần luyện tập thêm để cải thiện trí nhớ.",
+        "Tiềm năng": "Bạn có tiềm năng, hãy tiếp tục luyện tập để phát triển.",
+        "Tài năng": "Bạn có trí nhớ tốt, rất ấn tượng!",
+        "Eureka": "Trí nhớ của bạn thật phi thường! Bạn là thiên tài!"
     };
     
     // Effect for loading images
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function timeOut() {
-        feedbackContainer.textContent = 'Time is up!';
+        feedbackContainer.textContent = 'Hết giờ!';
         feedbackContainer.className = 'timeout-feedback';
 
         // Add shake animation for feedback
@@ -191,14 +191,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Use the canShowEndGame flag
                     if (canShowEndGame) {
                         canShowEndGame = false; // Prevent multiple calls
-                        endGame(score, data.rank || 'Chicken', 'You ran out of time!');
+                        endGame(score, data.rank || 'Gà mờ', 'Bạn đã hết giờ!');
                     }
                 }, 2000); // Wait 2 seconds to let the user see the correct answer
             })
             .catch(error => {
                 console.error('Error:', error);
                 // Fallback to ensure the game ends even if the fetch fails
-                endGame(score, 'Chicken', 'You ran out of time!');
+                endGame(score, 'Gà mờ', 'Bạn đã hết giờ!');
             });
     }
     
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.game_over) {
-                endGame(data.score, data.rank, 'You have completed all the questions!');
+                endGame(data.score, data.rank, 'Bạn đã hoàn thành tất cả các câu hỏi!');
                 return;
             }
             
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show feedback with effect
             if (data.correct) {
-                feedbackContainer.textContent = 'Correct! +1 point';
+                feedbackContainer.textContent = 'Chính xác! +1 điểm';
                 feedbackContainer.className = 'correct-feedback';
                 feedbackContainer.style.animation = 'fadeIn 0.5s ease';
                 
@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Automatically move to the next question after 1.5 seconds
                 setTimeout(moveToNextQuestion, 1500);
             } else {
-                feedbackContainer.textContent = `Wrong! The correct answer was ${data.correct_answer}`;
+                feedbackContainer.textContent = `Sai rồi! Đáp án đúng là ${data.correct_answer}`;
                 feedbackContainer.className = 'incorrect-feedback';
                 feedbackContainer.style.animation = 'fadeIn 0.5s ease';
 
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Use the canShowEndGame flag
                         if (canShowEndGame) {
                             canShowEndGame = false; // Prevent multiple calls
-                            endGame(data.final_score, data.rank, 'You answered incorrectly!');
+                            endGame(data.final_score, data.rank, 'Bạn đã trả lời sai!');
                         }
                     }, 2000); // Wait 2 seconds to let the user see the correct answer
                 }
@@ -421,19 +421,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const trophyIcon = gameOverHeader.querySelector('i');
             const headerText = gameOverHeader.querySelector('h2');
 
-            if (reason === 'You have completed all the questions!') {
+            if (reason === 'Bạn đã hoàn thành tất cả các câu hỏi!') {
                 // Show trophy icon and "Win" text
                 trophyIcon.style.display = 'inline-block';
-                headerText.textContent = 'Win!';
-                headerText.textContent = 'Win!';
+                headerText.textContent = 'Chiến Thắng!';
                 headerText.className = 'win-text';
                 gameOverReason.style.backgroundColor = '#d4edda'; // Green background for win
             } else {
                 // Hide trophy icon and show "Game Over" text
                 trophyIcon.style.display = 'none';
-                headerText.textContent = 'Game Over!';
+                headerText.textContent = 'Kết Thúc Trò Chơi!';
                 headerText.className = 'game-over-text';
-                gameOverReason.style.backgroundColor = '#f8d7da'; // Red background for win
+                gameOverReason.style.backgroundColor = '#f8d7da'; // Red background for game over
             }
 
             // Show the Game Over screen
