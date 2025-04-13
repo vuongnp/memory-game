@@ -2,3 +2,4 @@ Flask==2.0.3
 Flask-Cors==3.0.10
 Pillow==8.4.0
 gunicorn==20.0.4  # A production server for Flask
+Werkzeug==2.2.2
