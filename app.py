@@ -81,7 +81,7 @@ game_data = [
         "is_about_previous": True
     },
     {
-        "image": "image6.png",
+        "image": "image6_vn.png",
         "question": "Có bao nhiêu màu sắc trong hình ảnh trước đó?",
         "options": ["1", "2", "3", "0"],
         "correct": "B",
@@ -102,7 +102,7 @@ game_data = [
         "is_about_previous": True
     },
     {
-        "image": "image7.png",
+        "image": "image7_vn.png",
         "question": "Bạn có muốn tham gia với chúng tôi không?",
         "options": ["Có", "Không", "Có thể", "Không chắc"],
         "correct": "A",
