@@ -1,116 +1,29 @@
 from flask import Flask, render_template, request, jsonify
+import pandas as pd
 
 app = Flask(__name__)
 
-game_data = [
-     {
-        "image": "image1.jpg",
-        "question": "Hình dạng của biển báo này là gì?",
-        "options": ["Vuông", "Tròn", "Tam giác", "Chữ nhật"],
-        "correct": "C",
-        "is_about_previous": False
-    },
-    {
-        "image": "image2.png",
-        "question": "Hình dạng của biển báo này là gì?",
-        "options": ["Tam giác", "Tròn", "Vuông", "Chữ nhật"],
-        "correct": "B",
-        "is_about_previous": False
-    },
-    {
-        "image": "image3.jpg", 
-        "question": "Hình dạng của biển báo trước đó là gì?",
-        "options": ["Chữ nhật", "Tròn", "Tam giác", "Vuông"],
-        "correct": "B",
-        "is_about_previous": True
-    },
-    {
-        "image": "image1.jpg",
-        "question": "Màu sắc của biển báo trước đó là gì?",
-        "options": ["Xanh dương", "Xanh lá", "Đen", "Đỏ"],
-        "correct": "A",
-        "is_about_previous": True
-    },
-    {
-        "image": "image3.jpg",
-        "question": "Hình dạng của biển báo trước đó là gì?",
-        "options": ["Chữ nhật", "Tròn", "Vuông", "Tam giác"], 
-        "correct": "D",
-        "is_about_previous": True
-    },
-    {
-        "image": "image4.jpeg",
-        "question": "Có bao nhiêu người trong hình ảnh này?",
-        "options": ["1", "2", "3", "5"],
-        "correct": "D",
-        "is_about_previous": False
-    },
-    {
-        "image": "image2.png",
-        "question": "Dòng chữ trên tường trong hình ảnh trước đó là gì?",
-        "options": ["Eureka", "Robotics", "Millennials", "Millennial"],
-        "correct": "C",
-        "is_about_previous": True
-    },
-    {
-        "image": "image2.png",
-        "question": "Hình dạng của biển báo này là gì?",
-        "options": ["Tam giác", "Tròn", "Vuông", "Chữ nhật"],
-        "correct": "B",
-        "is_about_previous": False
-    },
-    {
-        "image": "image5.jpg",
-        "question": "Có hoa màu vàng trong hình ảnh này không?",
-        "options": ["Có", "Không", "Có thể", "Không chắc"],
-        "correct": "A",
-        "is_about_previous": False
-    },
-    {
-        "image": "image1.jpg",
-        "question": "Có bao nhiêu bông hoa màu đỏ trong hình ảnh trước đó?",
-        "options": ["1", "2", "3", "4"],
-        "correct": "C",
-        "is_about_previous": True
-    },
-    {
-        "image": "image3.jpg",
-        "question": "Có bao nhiêu mũi tên hướng lên trong hình ảnh trước đó?",
-        "options": ["1", "2", "3", "0"],
-        "correct": "A",
-        "is_about_previous": True
-    },
-    {
-        "image": "image6_vn.png",
-        "question": "Có bao nhiêu màu sắc trong hình ảnh trước đó?",
-        "options": ["1", "2", "3", "0"],
-        "correct": "B",
-        "is_about_previous": True
-    },
-    {
-        "image": "image4.jpeg",
-        "question": "Có bao nhiêu từ trong dòng chữ màu xanh trong hình ảnh trước đó?",
-        "options": ["5", "6", "7", "8"],
-        "correct": "D",
-        "is_about_previous": True
-    },
-    {
-        "image": "image8.png",
-        "question": "Eureka Robotics đã huy động được bao nhiêu trong vòng gọi vốn series A?",
-        "options": ["0.5M USD", "3.0M USD", "10.0M USD", "10.5M USD"],
-        "correct": "D",
-        "is_about_previous": True
-    },
-    {
-        "image": "image7_vn.png",
-        "question": "Bạn có muốn tham gia với chúng tôi không?",
-        "options": ["Có", "Không", "Có thể", "Không chắc"],
-        "correct": "A",
-        "is_about_previous": False
-    },
+# Load game data from Excel file
+try:
+    # Read the Excel file
+    excel_data = pd.read_excel('static/questions.xlsx')
     
-    # Add more questions
-]
+    # Convert Excel data to the required format
+    game_data = []
+    for _, row in excel_data.iterrows():
+        question_item = {
+            "image": row["Anh"],
+            "question": row["Cau_hoi"],
+            "options": [row["A"], row["B"], row["C"], row["D"]],
+            "correct": row["Dap_an"],
+            "is_about_previous": bool(row["Hoi_cau_truoc_do"])  # Convert to boolean
+        }
+        game_data.append(question_item)
+        
+except Exception as e:
+    print(f"Error loading questions from Excel: {e}")
+    game_data = []
+
 
 # Ranking system based on score
 def get_rank(score):
@@ -187,4 +100,4 @@ def get_correct_answer():
     return jsonify({"error": "Invalid question index"})
 
 if __name__ == '__main__':
-    app.run(host='192.168.192.37', port=5041, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
